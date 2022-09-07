@@ -1,6 +1,6 @@
 <?php
 
-$conn = new PDO("mysql:dbname=moviesbubble;host=localhost", "", ""); /* PREENCHER */
+$conn = new PDO("mysql:dbname=moviesbubble;host=localhost", "root", ""); /* PREENCHER */
 
 
 // Habilita erros PDO

@@ -43,7 +43,6 @@ $userData = $userDao -> verifyToken(false);
         <nav id="main-navbar" class="navbar navbar-expand-lg">
             <a href="<?= $BASE_URL ?>" class="navbar-brand">
             <img src="<?= $BASE_URL ?>/img/icon.png" alt="Bubble Movies" id='logo'>
-            <span id='moviebubble-title'>Bubble Movies</span>
         </a>
         <button class="navbar-toggler" type='button' data-toggle="collapse" data-target="$navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" >
             <i class="fas fa-bars"></i>
@@ -59,17 +58,20 @@ $userData = $userDao -> verifyToken(false);
         <?php if($userData):?>
 
 
+
             <li class="nav-item">
                 <a href="<?= $BASE_URL ?>dasboard.php" class="nav-link">Meus Filmes</a>
             </li>
 
 
             <li class="nav-item">
-                <a href="<?= $BASE_URL ?>auth.php" class="nav-link"> Adicionar Filme </a>
+                <a href="<?= $BASE_URL ?>newmovie.php" class="nav-link"> Adicionar Filme </a>
+            </li>
+            <li class="nav-item">
+                <a href="<?= $BASE_URL ?>editprofile.php" class="nav-link">
+            <img width="32" height="32" style="border-radius: 50%;" src="<?= $BASE_URL . '/img/users/user.png' ?>" alt=""></a>
             </li>
 
-            <li class="nav-item">
-                <a href="<?= $BASE_URL ?>editprofile.php"><?= $userData -> name ?> </a>
                 
             </li>
 
