@@ -34,11 +34,45 @@ if($type === 'update') {
     $userData -> email = $email;
     $userData -> bio = $bio;
 
-    //Upload da imagem
+    if(isset($_FILES["image"]) && !empty($_FILES["image"]["tmp_name"])) {
+      
+      $image = $_FILES["image"];
+      $imageTypes = ["image/jpeg", "image/jpg", "image/png"];
+      $jpgArray = ["image/jpeg", "image/jpg"];
+
+      // Checagem do tipo de imagem
+      if(in_array($image["type"], $imageTypes)) {
+
+        // png check
+        if(in_array($image, $jpgArray)) {
+
+          $imageFile = imagecreatefromjpeg($image["tmp_name"]);
+
+        // png check
+        } else {
+
+          $imageFile = imagecreatefrompng($image["tmp_name"]);
+
+        }
+
+        $imageName = $user->imageGenerateName();
+        $path = "./img/users/" . $imageName;
+        imagejpeg($imageFile, $path, 100);
+
+        $userData->image = $imageName;
+
+        echo $imageName;
+        
+      } else {
+
+        $message->setMessage("Tipo inválido de imagem, insira png ou jpg!", "error", "back");
+
+      }
+    
 
     // Aqui ele irá atualizar os dados do usuário no banco de dados e redirecionar para a página de perfil do usuário com uma mensagem de sucesso ou erro (caso o email já esteja cadastrado) 
     $userDao -> update($userData);
-    
+    }
         
 
 } else if ($type === 'changepassword') {

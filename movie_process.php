@@ -32,12 +32,36 @@ if($type === 'create') {
     $movie -> trailer = $trailer;
     $movie -> category = $category;
     $movie -> length = $length;
-
+    $movie -> users_id = $userData -> id;
+    
     // Upload da imagem
-    $image = $_FILES['image'];
-    var_dump($image);
+    if(isset($_FILES['image']) && !empty($_FILES["image"]['tmp_name'])) {
+        $image = $_FILES["image"];
+        $imageTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+        $jpgArray = ['image/jpeg', 'image/jpg'];
 
+        if(in_array($image['type'], $imageTypes)) {
 
+            if(in_array($image['type'], $jpgArray)) {
+                $imageFile = imagecreatefromjpeg($image['tmp_name']);
+            } else {
+                $imageFile = imagecreatefrompng($image['tmp_name']);
+            }
+            $imageName = $movie -> imageGenerateName();
+
+            $imagePath = $movie -> imageGenerateName();
+            imagejpeg($imageFile, "./img/movies" . $imageName, 100);         
+
+            $movie -> movie = $imageName;
+           
+        } else {
+            $message -> setMessage("Formato de imagem inválido", "error", "back");
+        }
+
+    }
+    print_r($_POST); print_r($_FILES); exit;
+    $movieDao -> create($movie);
+    
     if(!empty($title) && !empty($description) && !empty($category)){
 
     }else {

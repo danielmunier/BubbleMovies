@@ -69,7 +69,7 @@ $userData = $userDao -> verifyToken(false);
             </li>
             <li class="nav-item">
                 <a href="<?= $BASE_URL ?>editprofile.php" class="nav-link">
-            <img width="32" height="32" style="border-radius: 50%;" src="<?= $BASE_URL . '/img/users/user.png' ?>" alt=""></a>
+            <img width="32" height="32" style="border-radius: 50%;" src="<?= $BASE_URL ?>img/users/<?= $userData->image ?>" alt=""></a>
             </li>
 
                 
@@ -83,7 +83,7 @@ $userData = $userDao -> verifyToken(false);
 
             <?php else:?>
                 <li class="nav-item">
-                    <a href="<?= $BASE_URL ?>auth.php" class="nav-link">Login / Register</a>
+                    <a href="<?= $BASE_URL ?>/auth.php" class="nav-link">Login / Register</a>
                 </li>
                 <?php endif;?>
             </ul>

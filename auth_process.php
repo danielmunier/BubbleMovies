@@ -1,10 +1,10 @@
 <?php
 
-require_once("models/User.php");
-require_once("models/Message.php");
-require_once("dao/UserDAO.php");
-require_once("globals.php");
-require_once("db.php");
+require_once("./models/User.php");
+require_once("./models/Message.php");
+require_once("./dao/UserDAO.php");
+require_once("./globals.php");
+require_once("./db.php");
 
 $message = new Message($BASE_URL);
 
@@ -85,12 +85,12 @@ if($type == "login"){
 
     if($userDao -> authenticateUser($email, $password)) {
 
-        $message -> setMessage("Usuário autenticado", "success", "editprofile.php");
+        $message -> setMessage("Usuário autenticado", "success", "index.php");
 
     } else {
         $message -> setMessage("Usuários/Senhas incorretos", "error", "back");
 
     } 
 }else {
-    $message -> setMessage("Informações inválidas!", "error", "index.php");
+    $message -> setMessage("Logado", "success", "index.php");
 }
