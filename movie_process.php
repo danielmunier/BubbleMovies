@@ -43,24 +43,30 @@ if($type === 'create') {
         if(in_array($image['type'], $imageTypes)) {
 
             if(in_array($image['type'], $jpgArray)) {
+                
                 $imageFile = imagecreatefromjpeg($image['tmp_name']);
             } else {
+
                 $imageFile = imagecreatefrompng($image['tmp_name']);
             }
             $imageName = $movie -> imageGenerateName();
+            $path = "./img/movies/" . $imageName;
 
-            $imagePath = $movie -> imageGenerateName();
-            imagejpeg($imageFile, "./img/movies" . $imageName, 100);         
+            imagejpeg($imageFile, $path, 100);         
 
-            $movie -> movie = $imageName;
+            $movie -> image = $imageName;
+
            
         } else {
             $message -> setMessage("Formato de imagem inválido", "error", "back");
         }
 
     }
-    print_r($_POST); print_r($_FILES); exit;
-    $movieDao -> create($movie);
+    $movieDAO -> create($movie);
+ var_dump($imageName);
+    // display the image
+ 
+    
     
     if(!empty($title) && !empty($description) && !empty($category)){
 

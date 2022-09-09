@@ -73,7 +73,7 @@ class UserDAO implements UserDAOInterface {
         $stmt -> execute();
 
         if($redirect) {
-            $this -> message -> setMessage('Usuário atualizado com sucesso!', 'success');
+            $this -> message -> setMessage('Usuário atualizado com sucesso!', 'success', 'back');
             
 
         }

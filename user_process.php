@@ -33,18 +33,18 @@ if($type === 'update') {
     $userData -> lastname = $lastname;
     $userData -> email = $email;
     $userData -> bio = $bio;
-
     if(isset($_FILES["image"]) && !empty($_FILES["image"]["tmp_name"])) {
       
       $image = $_FILES["image"];
-      $imageTypes = ["image/jpeg", "image/jpg", "image/png"];
+      $imageTypes = ["image/jpg", "image/jpeg", "image/png"];
       $jpgArray = ["image/jpeg", "image/jpg"];
+
 
       // Checagem do tipo de imagem
       if(in_array($image["type"], $imageTypes)) {
 
-        // png check
-        if(in_array($image, $jpgArray)) {
+        // jpg check
+        if(in_array($image["type"], $jpgArray)) {
 
           $imageFile = imagecreatefromjpeg($image["tmp_name"]);
 
@@ -59,9 +59,10 @@ if($type === 'update') {
         $path = "./img/users/" . $imageName;
         imagejpeg($imageFile, $path, 100);
 
-        $userData->image = $imageName;
+        $userData-> image = $imageName;
 
-        echo $imageName;
+
+
         
       } else {
 
@@ -71,11 +72,11 @@ if($type === 'update') {
     
 
     // Aqui ele irá atualizar os dados do usuário no banco de dados e redirecionar para a página de perfil do usuário com uma mensagem de sucesso ou erro (caso o email já esteja cadastrado) 
-    $userDao -> update($userData);
-    }
+    
+  }}
         
 
-} else if ($type === 'changepassword') {
+ else if ($type === 'changepassword') {
    $userData = $userDao -> verifyToken();
    $newpassword = filter_input(INPUT_POST, "password"); 
    

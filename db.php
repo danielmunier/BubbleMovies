@@ -3,7 +3,7 @@
 $login = 'root';/* PREENCHER */
 $password = '';/* PREENCHER */
 
-$conn = new PDO("mysql:dbname=moviesbubble;host=localhost", $login, $password); 
+$conn = new PDO("mysql:dbname=bubblemovies;host=localhost", $login, $password); 
 
 
 // Habilita erros PDO
