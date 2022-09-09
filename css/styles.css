@@ -119,10 +119,14 @@
   margin-right: 1%;
 }
 
+
+
+
 .movie-card .card-img-top {
   height: 300px;
   width: 100%;
   background-size: cover;
+
   background-position: center;
 }
 

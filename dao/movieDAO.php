@@ -1,5 +1,6 @@
 <?php
 
+require_once("db.php");
 require_once("models/Movie.php");
 require_once("models/Message.php");
 require_once("models/User.php");
@@ -39,21 +40,58 @@ class MovieDAO implements MovieDAOInterface {
 
     }
     public function getLatestMovies() {
+        $stmt = $this -> conn -> query("SELECT * FROM movies ORDER BY id DESC");
+        $stmt -> execute();
+
+        
+        if($stmt -> rowCount() > 0){
+            $allMovies = $stmt -> fetchAll();
+
+            foreach($allMovies as $movie) {
+                $movies[] = $this -> buildMovie($movie);
+            }
+            
+        }
+       
+        return $movies;
 
     }
-    public function getMoviesByCategory()
-    {
-        
+    public function getMoviesByCategory($category){
+        $stmt = $this -> conn -> prepare("SELECT * FROM movies WHERE category = :category");
+        $stmt -> bindParam(':category', $category);
+        $stmt -> execute();
+
+        $movies = [];
+        $allMovies = $stmt -> fetchAll();
+        foreach($allMovies as $movie) {
+            $movies[] = $this -> buildMovie($movie);
+
+        }
+        return $movies;
     }
+        
+    
     public function getMoviesByUserId($id)
     {
         
     }
     public function findById($id){
         $stmt = $this -> conn -> prepare("SELECT FROM movies WHERE id = :id");
-        $stmt -> bindParam(":id", $id);
-
+        $stmt -> bindParam(':id', $id);
         $stmt -> execute();
+
+
+
+        if($stmt -> rowCount() > 0) { // Se a contagem retornar alguma linha (se existe algum usuário com esse email) 
+            $data = $stmt -> fetch(); // Pega a primeira linha do resultado
+            $movie = $this -> buildMovie($data); // Constroi o objeto Movie
+            /* return $this;  */// Retorna o objeto Movie
+            return $movie;
+
+        } else {
+            return false;
+        }
+
 
 
         
@@ -92,4 +130,6 @@ class MovieDAO implements MovieDAOInterface {
 
 
 }
+
+$movie = new MovieDAO($conn, $BASE_URL);
 

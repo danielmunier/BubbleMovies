@@ -11,7 +11,7 @@
         <ul>
             <li><a href="">Adicionar filme</a></li>
             <li><a href="">Adicionar Crítica</a></li>
-            <li><a href="">Entrar / Registrar</a></li>
+            <li><a href="auth.php">Entrar / Registrar</a></li>
 
 
         </ul>

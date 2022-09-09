@@ -66,7 +66,7 @@ if($userData) {
 
 
             <li class="nav-item">
-                <a href="<?= $BASE_URL ?>dasboard.php" class="nav-link">Meus Filmes</a>
+                <a href="<?= $BASE_URL ?>dashboard.php" class="nav-link">Meus Filmes</a>
             </li>
 
 
@@ -89,7 +89,7 @@ if($userData) {
 
             <?php else:?>
                 <li class="nav-item">
-                    <a href="<?= $BASE_URL ?>/auth.php" class="nav-link">Login / Register</a>
+                    <a href="<?= $BASE_URL ?>auth.php" class="nav-link">Login / Register</a>
                 </li>
                 <?php endif;?>
             </ul>

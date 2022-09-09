@@ -33,6 +33,8 @@ if($type === 'update') {
     $userData -> lastname = $lastname;
     $userData -> email = $email;
     $userData -> bio = $bio;
+    $userDao-> update($userData);
+
     if(isset($_FILES["image"]) && !empty($_FILES["image"]["tmp_name"])) {
       
       $image = $_FILES["image"];
@@ -69,11 +71,11 @@ if($type === 'update') {
         $message->setMessage("Tipo inválido de imagem, insira png ou jpg!", "error", "back");
 
       }
+      $userDao-> update($userData);
     
 
     // Aqui ele irá atualizar os dados do usuário no banco de dados e redirecionar para a página de perfil do usuário com uma mensagem de sucesso ou erro (caso o email já esteja cadastrado) 
-    
-  }}
+  }}  
         
 
  else if ($type === 'changepassword') {
