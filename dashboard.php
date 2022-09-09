@@ -9,6 +9,8 @@ $movieDao = new MovieDAO($conn, $BASE_URL);
 $userDao = new UserDAO($conn, $BASE_URL);
 $user = new User();
 $userData = $userDao -> verifyToken(true);
+$movies = $movieDao -> findById($userData -> id); 
+
 
 
 ?>
@@ -19,9 +21,12 @@ require_once 'templates/header.php';
 
 ?>
 
-
+<div class="movies-container">
 <div class="container-fluid" id='main-container'>
-    <h1><?=  $movieDao -> findById($userData -> id) ?></h1>
+    <?php foreach($movies as $movie): ?>
+        <?php require("templates/movie_card.php"); ?>
+      <?php endforeach; ?>
+</div>
 </div>
 
 

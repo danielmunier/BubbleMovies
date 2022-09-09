@@ -1,6 +1,6 @@
 <?php
 
-$dbname = "";
+$dbname = ""; /* PREENCHER */
 $login = 'root';/* PREENCHER */
 $password = '';/* PREENCHER */
 
