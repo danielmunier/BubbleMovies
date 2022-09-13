@@ -19,7 +19,7 @@ use function PHPSTORM_META\type;
 ?>
   <div id="main-container" class="container-fluid">
     <h2 class="section-title">Filmes novos</h2>
-    <p class="section-description">Veja as críticas dos últimos filmes adicionados no MovieStar</p>
+    <p class="section-description">Veja as críticas dos últimos filmes adicionados nessa xereca</p>
     <div class="movies-container">
       <?php foreach($latestMovies as $movie): ?>
         <?php require("templates/movie_card.php"); ?>

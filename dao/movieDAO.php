@@ -71,11 +71,7 @@ class MovieDAO implements MovieDAOInterface {
     }
         
     
-    public function getMoviesByUserId($id)
-    {
-        
-    }
-    public function findById($id){
+    public function getMoviesByUserId($id){
         $stmt = $this -> conn -> prepare("SELECT * FROM movies WHERE users_id = :id");
         $stmt -> bindParam(':id', $id);
         $stmt -> execute();
@@ -88,6 +84,32 @@ class MovieDAO implements MovieDAOInterface {
        }
 
         return $movies;
+        
+    }
+    public function findById($id){
+        $movie = [];
+        $stmt = $this->conn->prepare("SELECT * FROM movies
+                                      WHERE id = :id");
+  
+        $stmt->bindParam(":id", $id);
+  
+        $stmt->execute();
+  
+        if($stmt->rowCount() > 0) {
+  
+          $movieData = $stmt->fetch();
+  
+          $movie = $this->buildMovie($movieData);
+  
+          return $movie;
+  
+        } else {
+  
+          return false;
+  
+        }
+
+       
     }
 
     public function findByTitle($title)
@@ -119,6 +141,11 @@ class MovieDAO implements MovieDAOInterface {
 
     }
     public function destroy(Movie $movie) {
+        $stmt = $this -> conn -> prepare("DELETE FROM movies WHERE id = :id");
+        $stmt -> bindParam(":id", $movie -> id);
+
+        $stmt -> execute();
+        
 
     }
 

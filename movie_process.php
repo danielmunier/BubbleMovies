@@ -74,4 +74,19 @@ if($type === 'create') {
         $message -> setMessage("Faltando informações", 'error', 'back');
     }
 
+} else if($type === "delete"){
+    $id = filter_input(INPUT_POST, "id");
+    $movie = $movieDAO -> findById($id);
+    if($movie){
+        // Verifica se o filme é do usuário
+        if($movie -> users_id === $userData -> id){
+            $movieDAO -> destroy($movie);
+            $message -> setMessage("Filme deletado com sucesso!", "success", "back");
+        }else {
+            $message -> setMessage("Você não pode deletar esse filme", "error", "back");
+        }
+        
+    }
+    
+
 }
