@@ -1,6 +1,6 @@
 <?php
 
-$dbname = "bubblemovies"; /* PREENCHER */
+$dbname = ""; /* PREENCHER */
 $login = 'root';/* PREENCHER */
 $password = '';/* PREENCHER */
 

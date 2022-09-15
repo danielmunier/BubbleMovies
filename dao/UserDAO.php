@@ -188,6 +188,28 @@ class UserDAO implements UserDAOInterface {
 
     }
     public function findById($id){
+        if($id != "") {
+            $stmt = $this -> conn -> prepare("SELECT * FROM users WHERE id = :id");
+
+            $stmt -> bindParam(":id", $id);
+            $stmt -> execute();
+
+            if($stmt -> rowCount() > 0) { // Se a contagem retornar alguma linha (se existe algum usuário com esse email) 
+                $data = $stmt -> fetch(); // Pega a primeira linha do resultado
+                $user = $this -> buildUser($data); // Constroi o objeto User
+                /* return $this;  */// Retorna o objeto User
+                return $user;
+
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+
+        
+
 
     }
     public function changePassword(User $user){

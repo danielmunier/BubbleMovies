@@ -6,8 +6,10 @@ use function PHPSTORM_META\type;
 
   require_once("dao/MovieDAO.php");
 
+
   // DAO dos filmes
   $movieDao = new MovieDAO($conn, $BASE_URL);
+
 
   $latestMovies = $movieDao->getLatestMovies();
 
@@ -16,6 +18,8 @@ use function PHPSTORM_META\type;
   $comedyMovies = $movieDao->getMoviesByCategory("Comédia");
 
   
+
+   
 ?>
   <div id="main-container" class="container-fluid">
     <h2 class="section-title">Filmes novos</h2>

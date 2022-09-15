@@ -138,6 +138,28 @@ class MovieDAO implements MovieDAOInterface {
         
     }
     public function update(Movie $movie){
+        $stmt = $this -> conn -> prepare("UPDATE movies SET
+            title = :title,
+            description = :description,
+            image = :image,
+            trailer = :trailer,
+            category = :category,
+            length = :length,
+            users_id = :users_id
+            WHERE id = :id");
+
+            $stmt -> bindParam(":title", $movie -> title);
+            $stmt -> bindParam(":description", $movie -> description);
+            $stmt -> bindParam(":image", $movie -> image);
+            $stmt -> bindParam(":trailer", $movie -> trailer);
+            $stmt -> bindParam(":category", $movie -> category);
+            $stmt -> bindParam(":length", $movie -> length);
+            $stmt -> bindParam(":users_id", $movie -> users_id);
+            $stmt -> bindParam(":id", $movie -> id);
+
+            $stmt -> execute();
+
+            $this -> message -> setMessage("Filme atualizado com sucesso!", "success", "index.php");
 
     }
     public function destroy(Movie $movie) {
@@ -147,6 +169,17 @@ class MovieDAO implements MovieDAOInterface {
         $stmt -> execute();
         
 
+    }
+
+    public function getAuthor($id){
+        
+        $movie = $this -> findById($id);
+        $user_id = $movie -> users_id;
+        $stmt = $this -> conn -> prepare("SELECT * FROM users WHERE id = :id");
+        $stmt -> bindParam(":id", $user_id);
+        $stmt -> execute();
+
+       
     }
 
 
