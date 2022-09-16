@@ -91,6 +91,4 @@ if($type == "login"){
         $message -> setMessage("Usuários/Senhas incorretos", "error", "back");
 
     } 
-}else {
-    $message -> setMessage("Logado", "success", "index.php");
 }
