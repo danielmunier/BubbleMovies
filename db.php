@@ -1,8 +1,8 @@
 <?php
 
-$dbname = "moviesbubble"; /* PREENCHER */
+$dbname = ""; /* PREENCHER */
 $login = 'root';/* PREENCHER */
-$password = 'sokkenai';/* PREENCHER */
+$password = '';/* PREENCHER */
 
 $conn = new PDO("mysql:dbname=". $dbname . ";host=localhost", $login, $password); 
 
