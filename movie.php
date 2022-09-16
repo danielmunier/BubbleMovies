@@ -30,6 +30,7 @@
   // Verifica se o filme é do proprio usuário
   $movieFromUser = false;
 
+
   if(!empty($userData)){
     if($userData -> id === $movie -> users_id){
       $movieFromUser = true;
@@ -37,11 +38,18 @@
 
   } 
   $user_id = $movie -> users_id;
-
+  
   // Verifica o autor do filme
   $owner = $userDao -> findById($user_id);
 
 // Reviews
+$movieReviews = $reviewDao->getMoviesReview($movie->id);
+$alreadyReviewed = false;
+
+$alreadyReviewed = $reviewDao -> hasAlreadyReviewed($movie->id, $userData->id);
+
+
+
 
 ?>
 
@@ -59,7 +67,7 @@
       </p>
       <iframe src="<?= $movie->trailer ?>" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encryted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       <p><?= $movie->description ?></p>
-      <span>Postado por: <?= $owner -> name ?></span>
+      <span>Postado por: <a href='<?= $BASE_URL ?>profile.php?id=<?= $owner -> id ?>' target="_blank" rel="noopener noreferrer"><?= $owner -> name ?></a></span>
 
     </div>
     <div class="col-md-4">
@@ -98,6 +106,7 @@
           <input type="submit" class="btn card-btn" value="Enviar comentário">
         </form>
       </div>
+      
     <?php endif; ?>
     <?php foreach($movieReviews as $review): ?>
       <?php require("templates/user_review.php"); ?>

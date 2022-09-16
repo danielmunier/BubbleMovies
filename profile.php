@@ -1,69 +1,78 @@
 <?php
+  require_once("templates/header.php");
 
-require_once("templates/header.php");
-require_once("dao/movieDAO.php");
-$movie = new MovieDAO($conn, $BASE_URL);
-$userDao = new UserDAO($conn, $BASE_URL);
-$user = new User();
+  // Verifica se usuário está autenticado
+  require_once("models/User.php");
+  require_once("dao/UserDAO.php");
+  require_once("dao/MovieDAO.php");
 
-$id = filter_input(INPUT_GET, "id");
+  $user = new User();
+  $userDao = new UserDAO($conn, $BASE_URL);
+  $movieDao = new MovieDAO($conn, $BASE_URL);
 
-$user = $userDao -> findById($id);
+  // Receber id do usuário via get
+  $id = filter_input(INPUT_GET, "id");
 
-if(!$user){
-    header("Location: " . $BASE_URL);
-    exit;
-}
+  if(empty($id)) {
+
+    if(!empty($userData)) {
+
+      $id = $userData->id;
+
+    } else {
+
+      $message->setMessage("Usuário inexistente", "error", "index.php");
+
+    }
+
+  } else {
+
+    $userData = $userDao->findById($id);
+
+    // Se não encontrar usuário
+    if(!$userData) {
+      $message->setMessage("Usuário não encontrado!", "error", "index.php");
+    }
+
+  }
+
+  $fullName = $user->getFullName($userData);
+
+  if($userData->image == "") {
+    $userData->image = "user.png";
+  }
+
+  // Filmes que do usuário
+  $userMovies = $movieDao->getMoviesByUserId($id);
 
 ?>
-
-
-<div class="container mt-5">
-    
-    <div class="row d-flex justify-content-center">
-        
-        <div class="col-md-7">
-            
-            <div class="card p-3 py-4">
-                
-                <div class="text-center">
-                    <img src="<?= $BASE_URL ?>img/users/<?= $userData->image ?>" width="300" class="rounded-circle">
-                </div>
-                
-                <div class="text-center mt-3">
-                    <h5 class="mt-2 mb-0"><?= $user -> name ?></h5>
-                    <span>UI/UX Designer</span>
-                    
-                    <div class="px-4 mt-1">
-                        <p class="fonts">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                    
-                    </div>
-                    
-       
-                    
-                    <div class="buttons">
-                        
-                        <button class="btn btn-outline-primary px-4">Message</button>
-                        <button class="btn btn-primary px-4 ms-3">Contact</button>
-                    </div>
-                    
-                    
-                </div>
-                
-               
-                
-                
-            </div>
-            
+  <div id="main-container" class="container-fluid">
+    <div class="col-md-8 offset-md-2">
+      <div class="row profile-container">
+        <div class="col-md-12 about-container">
+          <h1 class="page-title"><?= $fullName ?></h1>
+          <div id="profile-image-container" class="profile-image" style="background-image: url('<?= $BASE_URL ?>img/users/<?= $userData->image ?>')"></div>
+          <h3 class="about-title">Sobre:</h3>
+          <?php if(!empty($userData->bio)): ?>
+            <p class="profile-description"><?= $userData->bio ?></p>
+          <?php else: ?>
+            <p class="profile-description">O usuário ainda não escreveu nada aqui...</p>
+          <?php endif; ?>
         </div>
-        
+        <div class="col-md-12 added-movies-container">
+          <h3>Filmes que enviou:</h3>
+          <div class="movies-container">
+            <?php foreach($userMovies as $movie): ?>
+              <?php require("templates/movie_card.php"); ?>
+            <?php endforeach; ?>
+            <?php if(count($userMovies) === 0): ?>
+              <p class="empty-list">O usuário ainda não enviou filmes.</p>
+            <?php endif; ?>
+          </div>
+        </div>
+      </div>
     </div>
-    
-</div>
-
-
+  </div>
 <?php
-
-require_once("templates/footer.php");
-
+  require_once("templates/footer.php");
 ?>

@@ -47,7 +47,7 @@
       $stmt->execute();
 
       // Mensagem de sucesso por adicionar filme
-      $this->message->setMessage("Crítica adicionada com sucesso!", "success", "index.php");
+      $this->message->setMessage("Crítica adicionada com sucesso!", "success", "back");
 
     }
 
