@@ -22,6 +22,7 @@ Para rodar o projeto localmente é necessário o servidor Apache e o MySQL. Util
 - [x]  Criação das Reviews
 - [ ]  Alterar estilo
 - [ ]  Adicionar novas funcionalidades
+- [ ]  Fazer a aplicação consumir a API themoviedb
 
 
 
